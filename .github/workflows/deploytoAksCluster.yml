@@ -47,7 +47,6 @@ jobs:
           manifests: |
             manifests/deployment.yml
             manifests/service.yml
-            manifests/ingress.yml
             manifests/autoscaling.yml
           images: |
             sarson.azurecr.io/exam:${{ github.sha }}
