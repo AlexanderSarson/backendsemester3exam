@@ -1,0 +1,16 @@
+apiVersion : apps/v1beta1
+kind: Deployment
+metadata:
+  name: "exam"
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: "exam"
+    spec:
+      containers:
+        - name: "exam"
+          image: "sarson.azurecr.io/exam"
+          ports:
+          - containerPort: 8080
