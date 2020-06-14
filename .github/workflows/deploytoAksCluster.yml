@@ -2,50 +2,54 @@ on: [push]
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    services:
+      mysql:
+        image: mysql:8.0.19
+        ports:
+          - 3307:3306
+        env:
+          MYSQL_USER: dev
+          MYSQL_PASSWORD: ax2
+          MYSQL_DATABASE: startcode_test
+          MYSQL_ROOT_PASSWORD: password
     steps:
-    - uses: actions/checkout@master
-    
-    - uses: azure/docker-login@v1
-      with:
-        login-server: sarson.azurecr.io
-        username: ${{ secrets.acr_sarson_username }}
-        password: ${{ secrets.acr_sarson_password }}
-    
-    - name: Build and push image to ACR
-      id: build-image
-      run: |
-        docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t sarson.azurecr.io/exam:${{ github.sha }}
-        docker push sarson.azurecr.io/exam:${{ github.sha }}
-    
-    - uses: azure/k8s-set-context@v1
-      with:
-         kubeconfig: ${{ secrets.aks_exam_kubeConfig }}
-      id: login
-    
-    - name: Create namespace
-      run: |
-        namespacePresent=`kubectl get namespace | grep exama687 | wc -l`
-        if [ $namespacePresent -eq 0 ]
-        then
-            echo `kubectl create namespace exama687`
-        fi
+      - uses: actions/checkout@master
+      - name: Build java
+        run: mvn clean install
+      - uses: azure/docker-login@v1
+        with:
+          login-server: sarson.azurecr.io
+          username: ${{ secrets.acr_sarson_username }}
+          password: ${{ secrets.acr_sarson_password }}
 
-    - uses: azure/k8s-create-secret@v1
-      with:
-        namespace: exama687
-        container-registry-url: sarson.azurecr.io
-        container-registry-username: ${{ secrets.acr_sarson_username }}
-        container-registry-password: ${{ secrets.acr_sarson_password }}
-        secret-name: examdockerauth
-       
-    - uses: azure/k8s-deploy@v1
-      with:
-        namespace: exama687
-        manifests: |
-          manifests/deployment.yml
-          manifests/service.yml
-          manifests/ingress.yml
-        images: |
-          sarson.azurecr.io/exam:${{ github.sha }}
-        imagepullsecrets: |
-          examdockerauth
+      - name: Build and push image to ACR
+        id: build-image
+        run: |
+          docker build "$GITHUB_WORKSPACE/" -f  "Dockerfile" -t sarson.azurecr.io/exam:${{ github.sha }}
+          docker push sarson.azurecr.io/exam:${{ github.sha }}
+
+      - uses: azure/k8s-set-context@v1
+        with:
+          kubeconfig: ${{ secrets.aks_exam_kubeConfig }}
+        id: login
+
+      - uses: azure/k8s-create-secret@v1
+        with:
+          namespace: default
+          container-registry-url: sarson.azurecr.io
+          container-registry-username: ${{ secrets.acr_sarson_username }}
+          container-registry-password: ${{ secrets.acr_sarson_password }}
+          secret-name: examdockerauth
+
+      - uses: azure/k8s-deploy@v1
+        with:
+          namespace: default
+          manifests: |
+            manifests/deployment.yml
+            manifests/service.yml
+            manifests/ingress.yml
+            manifests/autoscaling.yml
+          images: |
+            sarson.azurecr.io/exam:${{ github.sha }}
+          imagepullsecrets: |
+            examdockerauth
