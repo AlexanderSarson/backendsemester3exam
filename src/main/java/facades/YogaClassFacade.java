@@ -10,7 +10,6 @@ import dtos.YogaClassDTO;
 import entity.Course;
 import entity.Instructor;
 import entity.YogaClass;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;

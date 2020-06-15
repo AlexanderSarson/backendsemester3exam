@@ -29,8 +29,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import utils.EMF_Creator;
 
@@ -81,18 +79,6 @@ public class CourseResource {
     public CourseResource() {
     }
 
-    /**
-     * Retrieves representation of an instance of rest.CourseResource
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
-
-
     @Operation(summary = "Returns a list of courses",
             responses = {
                 @ApiResponse(
@@ -121,9 +107,7 @@ public class CourseResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public CourseDTO createCourseByDTO(CourseDTO courseDTO
     ) {
-        CourseDTO dto;
-        dto = FACADE.createCourse(courseDTO);
-        return dto;
+        return FACADE.createCourse(courseDTO);
     }
     
     @Operation(summary = "Edit course",
@@ -139,9 +123,7 @@ public class CourseResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public CourseDTO editCourseByDTO(CourseDTO courseDTO
     ) {
-        CourseDTO dto;
-        dto = FACADE.editCourse(courseDTO);
-        return dto;
+        return FACADE.editCourse(courseDTO);
     }
     
     @Operation(summary = "Delete course",
@@ -157,7 +139,6 @@ public class CourseResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public CourseDTO deleteCourseByDTO(CourseDTO courseDTO
     ) throws CourseException {
-        CourseDTO dto = FACADE.deleteCourseById(courseDTO.getId());
-        return dto;
+        return FACADE.deleteCourseById(courseDTO.getId());
     }
 }

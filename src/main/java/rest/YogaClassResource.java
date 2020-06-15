@@ -42,7 +42,7 @@ public class YogaClassResource {
             "ax2",
             EMF_Creator.Strategy.CREATE);
     private static final YogaClassFacade FACADE = YogaClassFacade.getYogaClassFacade(EMF);
-    private static Gson GSON = new Gson();
+    private static final Gson GSON = new Gson();
 
 
     @Context
@@ -52,17 +52,6 @@ public class YogaClassResource {
      * Creates a new instance of YogaClassResource
      */
     public YogaClassResource() {
-    }
-
-    /**
-     * Retrieves representation of an instance of rest.YogaClassResource
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
     }
 
     @Path("/all")
@@ -87,9 +76,7 @@ public class YogaClassResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public YogaClassDTO createYogaClassByDTO(YogaClassDTO yogaClassDTO
     ) {
-        YogaClassDTO dto;
-        dto = FACADE.createYogaClass(yogaClassDTO);
-        return dto;
+        return FACADE.createYogaClass(yogaClassDTO);
     }
     
     @Operation(summary = "Delete yoga class",
@@ -105,9 +92,7 @@ public class YogaClassResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public YogaClassDTO deleteYogaClassByDTO(YogaClassDTO yogaClassDTO
     ) {
-        YogaClassDTO dto;
-        dto = FACADE.deleteYogaClass(yogaClassDTO);
-        return dto;
+        return FACADE.deleteYogaClass(yogaClassDTO);
     }
     
     @PUT
@@ -116,8 +101,6 @@ public class YogaClassResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public YogaClassDTO editYogaClassByDTO(YogaClassDTO yogaClassDTO
     ) {
-        YogaClassDTO dto;
-        dto = FACADE.editYogaClass(yogaClassDTO);
-        return dto;
+        return FACADE.editYogaClass(yogaClassDTO);
     }
 }

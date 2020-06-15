@@ -5,17 +5,13 @@
  */
 package facades;
 
-import dtos.CourseDTO;
 import dtos.InstructorDTO;
-import entity.Course;
 import entity.Instructor;
 import errorhandling.CourseException;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 
 /**
  *

@@ -50,16 +50,6 @@ public class InstructorResource {
     public InstructorResource() {
     }
 
-    /**
-     * Retrieves representation of an instance of rest.InstructorResource
-     * @return an instance of java.lang.String
-     */
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String getJson() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
-    }
 
     @Path("/all")
     @GET
@@ -83,9 +73,7 @@ public class InstructorResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public InstructorDTO createInstructorByDTO(InstructorDTO instructorDTO
     ) {
-        InstructorDTO dto;
-        dto = FACADE.createInstructor(instructorDTO);
-        return dto;
+        return FACADE.createInstructor(instructorDTO);
     }
     
     @Operation(summary = "Edit instructor",
@@ -101,9 +89,7 @@ public class InstructorResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public InstructorDTO editInstructorByDTO(InstructorDTO instructorDTO
     ) {
-        InstructorDTO dto;
-        dto = FACADE.editInstructorByDTO(instructorDTO);
-        return dto;
+        return FACADE.editInstructorByDTO(instructorDTO);
     }
     
     @Operation(summary = "Delete instructor",
@@ -119,7 +105,6 @@ public class InstructorResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public InstructorDTO deleteInstructorByDTO(InstructorDTO instructorDTO
     ) throws CourseException {
-        InstructorDTO dto = FACADE.deleteInstructorById(instructorDTO.getId());
-        return dto;
+        return FACADE.deleteInstructorById(instructorDTO.getId());
     }
 }

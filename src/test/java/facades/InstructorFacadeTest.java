@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author root
  */
-public class InstructorFacadeTest extends BaseFacadeTest {
+class InstructorFacadeTest extends BaseFacadeTest {
 
     private static final InstructorFacade FACADE = InstructorFacade.getInstructorFacade(getEntityManagerFactory());
 
@@ -22,21 +22,21 @@ public class InstructorFacadeTest extends BaseFacadeTest {
     }
 
     @Test
-    public void testGetAllInstructors() {
+    void testGetAllInstructors() {
         int expectedNumberOfInstructors = 3;
         int resultNumberOfInstructors = FACADE.getAllInstructors().size();
         assertEquals(expectedNumberOfInstructors, resultNumberOfInstructors);
     }
 
     @Test
-    public void testCreateInstructorByDTO() {
+    void testCreateInstructorByDTO() {
         InstructorDTO instructorDTO = new InstructorDTO("Boris");
         InstructorDTO resultInstructorDTO = FACADE.createInstructor(instructorDTO);
         assertEquals(instructorDTO.getName(), resultInstructorDTO.getName());
     }
 
     @Test
-    public void testDeleteInstructorById() throws CourseException {
+    void testDeleteInstructorById() throws CourseException {
         InstructorDTO instructorDTO = FACADE.getAllInstructors().get(0);
         InstructorDTO resultInstructorDTO = FACADE.deleteInstructorById(instructorDTO.getId());
         assertEquals(instructorDTO.getName(), resultInstructorDTO.getName());

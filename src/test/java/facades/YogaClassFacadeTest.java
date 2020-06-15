@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author root
  */
-public class YogaClassFacadeTest extends BaseFacadeTest {
+class YogaClassFacadeTest extends BaseFacadeTest {
 
     private static final YogaClassFacade FACADE = YogaClassFacade.getYogaClassFacade(getEntityManagerFactory());
 
@@ -22,28 +22,28 @@ public class YogaClassFacadeTest extends BaseFacadeTest {
     }
 
     @Test
-    public void testGetAllYogaClasses() {
+    void testGetAllYogaClasses() {
         int expectedNumberOfClasses = 6;
         int resultNumberOfClasses = FACADE.getAllYogaClasses().size();
         assertEquals(expectedNumberOfClasses, resultNumberOfClasses);
     }
 
     @Test
-    public void testCreateYogaClass() {
+    void testCreateYogaClass() {
         YogaClassDTO classDTO = new YogaClassDTO(getYogaClass());
         YogaClassDTO resultClassDTO = FACADE.createYogaClass(classDTO);
         assertEquals(classDTO.getMaxParticipants(), resultClassDTO.getMaxParticipants());
     }
 
     @Test
-    public void testDeleteYogaClass() {
+    void testDeleteYogaClass() {
         YogaClassDTO classDTO = new YogaClassDTO(getYogaClass());
         YogaClassDTO resultClassDTO = FACADE.deleteYogaClass(classDTO);
         assertEquals(classDTO.getId(), resultClassDTO.getId());
     }
 
     @Test
-    public void testEditYogaClass() {
+    void testEditYogaClass() {
         YogaClassDTO classDTO = new YogaClassDTO(getYogaClass());
         classDTO.setMaxParticipants(99);
         YogaClassDTO resultClassDTO = FACADE.editYogaClass(classDTO);
