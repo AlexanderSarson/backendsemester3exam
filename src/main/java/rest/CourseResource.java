@@ -116,6 +116,7 @@ public class CourseResource {
                 @ApiResponse(responseCode = "200", description = "The course is created"),
                 @ApiResponse(responseCode = "404", description = "Course not created")})
     @POST
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes(MediaType.APPLICATION_JSON)
     public CourseDTO createCourseByDTO(CourseDTO courseDTO
@@ -133,6 +134,7 @@ public class CourseResource {
                 @ApiResponse(responseCode = "200", description = "The course is edited"),
                 @ApiResponse(responseCode = "404", description = "Course not edited")})
     @PUT
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes(MediaType.APPLICATION_JSON)
     public CourseDTO editCourseByDTO(CourseDTO courseDTO
@@ -150,6 +152,7 @@ public class CourseResource {
                 @ApiResponse(responseCode = "200", description = "The course is deleted"),
                 @ApiResponse(responseCode = "404", description = "Course not deleted")})
     @DELETE
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes(MediaType.APPLICATION_JSON)
     public CourseDTO deleteCourseByDTO(CourseDTO courseDTO

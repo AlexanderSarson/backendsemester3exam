@@ -2,10 +2,13 @@ package rest;
 
 import entity.Course;
 import entity.Instructor;
+import entity.Role;
 import entity.SignedUp;
 import entity.Student;
+import entity.User;
 import entity.YogaClass;
 import io.restassured.RestAssured;
+import static io.restassured.RestAssured.given;
 import io.restassured.parsing.Parser;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
@@ -33,11 +36,28 @@ abstract public class BaseResourceTest {
     protected static HttpServer httpServer;
     protected static EntityManagerFactory entityManagerFactory;
     protected static YogaClass yogaclass1;
-    public static EntityManagerFactory getEntityManagerFactory() {
+    private static String securityToken;
+
+    protected static void login(String role, String password) {
+        String json = String.format("{username: \"%s\", password: \"%s\"}", role, password);
+        securityToken = given()
+                .contentType("application/json")
+                .body(json)
+                //.when().post("/api/login")
+                .when().post("/login")
+                .then()
+                .extract().path("token");
+        System.out.println("TOKEN ---> " + securityToken);
+    }
+    protected static EntityManagerFactory getEntityManagerFactory() {
         return entityManagerFactory;
     }
-    public static YogaClass getYogaClass() {
+    protected static YogaClass getYogaClass() {
         return yogaclass1;
+    }
+    
+    protected static String getSecurityToken(){
+        return securityToken;
     }
 
     static HttpServer startServer() {
@@ -194,6 +214,24 @@ abstract public class BaseResourceTest {
             course1.setYogaClasses(courseYogaClassList1);
             course2.setYogaClasses(courseYogaClassList2);
             course3.setYogaClasses(courseYogaClassList3);
+            
+            em.createQuery("delete from User").executeUpdate();
+            em.createQuery("delete from Role").executeUpdate();
+
+            Role userRole = new Role("user");
+            Role adminRole = new Role("admin");
+            User user = new User("user", "test");
+            user.addRole(userRole);
+            User admin = new User("admin", "test");
+            admin.addRole(adminRole);
+            User both = new User("user_admin", "test");
+            both.addRole(userRole);
+            both.addRole(adminRole);
+            em.persist(userRole);
+            em.persist(adminRole);
+            em.persist(user);
+            em.persist(admin);
+            em.persist(both);
             em.getTransaction().commit();
         } finally {
             em.close();

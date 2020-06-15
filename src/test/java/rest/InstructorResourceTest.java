@@ -40,8 +40,10 @@ public class InstructorResourceTest extends BaseResourceTest{
     @Test
     public void testCreateInstructor() {
         InstructorDTO instructorDTO = new InstructorDTO("Oscar");
+        login("admin", "test");
         given()
                 .contentType(ContentType.JSON)
+                .header("x-access-token", getSecurityToken())
                 .body(instructorDTO)
                 .when()
                 .post("/instructor")
@@ -53,8 +55,10 @@ public class InstructorResourceTest extends BaseResourceTest{
     public void testEditInstructor() throws CourseException {
         InstructorDTO instructorDTO = FACADE.getAllInstructors().get(0);
         instructorDTO.setName("Henrik");
+        login("admin", "test");
         given()
                 .contentType(ContentType.JSON)
+                .header("x-access-token", getSecurityToken())
                 .body(instructorDTO)
                 .when()
                 .put("/instructor")

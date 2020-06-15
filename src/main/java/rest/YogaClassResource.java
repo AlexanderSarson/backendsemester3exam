@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -81,6 +82,7 @@ public class YogaClassResource {
                 @ApiResponse(responseCode = "200", description = "The yoga class is created"),
                 @ApiResponse(responseCode = "404", description = "Yoga class not created")})
     @POST
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes(MediaType.APPLICATION_JSON)
     public YogaClassDTO createYogaClassByDTO(YogaClassDTO yogaClassDTO
@@ -98,6 +100,7 @@ public class YogaClassResource {
                 @ApiResponse(responseCode = "200", description = "The yoga class is deleted"),
                 @ApiResponse(responseCode = "404", description = "Yoga class not deleted")})
     @DELETE
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes(MediaType.APPLICATION_JSON)
     public YogaClassDTO deleteYogaClassByDTO(YogaClassDTO yogaClassDTO
@@ -108,6 +111,7 @@ public class YogaClassResource {
     }
     
     @PUT
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes(MediaType.APPLICATION_JSON)
     public YogaClassDTO editYogaClassByDTO(YogaClassDTO yogaClassDTO

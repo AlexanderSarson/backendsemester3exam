@@ -38,8 +38,10 @@ public class YogaClassResourceTest extends BaseResourceTest{
     @Test
     public void testCreateYogaClass() {
         YogaClassDTO classDTO = new YogaClassDTO(getYogaClass());
+        login("admin", "test");
         given()
                 .contentType(ContentType.JSON)
+                .header("x-access-token", getSecurityToken())
                 .body(classDTO)
                 .when()
                 .post("/yogaclass")
@@ -51,8 +53,10 @@ public class YogaClassResourceTest extends BaseResourceTest{
     public void testEditYogaClass() throws CourseException {
         YogaClassDTO classDTO = new YogaClassDTO(getYogaClass());
         classDTO.setMaxParticipants(99);
+        login("admin", "test");
         given()
                 .contentType(ContentType.JSON)
+                .header("x-access-token", getSecurityToken())
                 .body(classDTO)
                 .when()
                 .put("/yogaclass")

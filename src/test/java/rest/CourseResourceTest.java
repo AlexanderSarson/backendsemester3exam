@@ -40,8 +40,10 @@ public class CourseResourceTest extends BaseResourceTest{
     @Test
     public void testCreateCourse() {
         CourseDTO courseDTO = new CourseDTO("new course", "new course description");
+        login("admin", "test");
         given()
                 .contentType(ContentType.JSON)
+                .header("x-access-token", getSecurityToken())
                 .body(courseDTO)
                 .when()
                 .post("/course")
@@ -55,8 +57,10 @@ public class CourseResourceTest extends BaseResourceTest{
         CourseDTO courseDTO = FACADE.findCourseByName("Hatha Yoga");
         courseDTO.setCourseName("name edited");
         courseDTO.setDescription("description edited");
+        login("admin", "test");
         given()
                 .contentType(ContentType.JSON)
+                .header("x-access-token", getSecurityToken())
                 .body(courseDTO)
                 .when()
                 .put("/course")

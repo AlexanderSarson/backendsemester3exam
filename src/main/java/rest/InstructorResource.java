@@ -13,6 +13,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
@@ -77,6 +78,7 @@ public class InstructorResource {
                 @ApiResponse(responseCode = "200", description = "The instructor is created"),
                 @ApiResponse(responseCode = "404", description = "Instructor not created")})
     @POST
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes(MediaType.APPLICATION_JSON)
     public InstructorDTO createInstructorByDTO(InstructorDTO instructorDTO
@@ -94,6 +96,7 @@ public class InstructorResource {
                 @ApiResponse(responseCode = "200", description = "The instructor is edited"),
                 @ApiResponse(responseCode = "404", description = "Instructor not edited")})
     @PUT
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes(MediaType.APPLICATION_JSON)
     public InstructorDTO editInstructorByDTO(InstructorDTO instructorDTO
@@ -111,6 +114,7 @@ public class InstructorResource {
                 @ApiResponse(responseCode = "200", description = "The instructor is deleted"),
                 @ApiResponse(responseCode = "404", description = "instructor not deleted")})
     @DELETE
+    @RolesAllowed({"admin"})
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes(MediaType.APPLICATION_JSON)
     public InstructorDTO deleteInstructorByDTO(InstructorDTO instructorDTO
