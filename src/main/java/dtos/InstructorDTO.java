@@ -6,6 +6,7 @@
 package dtos;
 
 import entity.Instructor;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,6 +49,14 @@ public class InstructorDTO {
 
     public void setYogaClass(List<YogaClassDTO> yogaClass) {
         this.yogaClass = yogaClass;
+    }
+    
+    public static List<InstructorDTO> convertInstructorListToDTO(List<Instructor> instructors){
+        List<InstructorDTO> instructorDTOs = new ArrayList<>();
+        for (Instructor instructor : instructors) {
+            instructorDTOs.add(new InstructorDTO(instructor));
+        }
+        return instructorDTOs;
     }
     
 }

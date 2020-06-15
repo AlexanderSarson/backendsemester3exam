@@ -35,9 +35,10 @@ abstract public class BaseResourceTest {
     protected static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     protected static HttpServer httpServer;
     protected static EntityManagerFactory entityManagerFactory;
-
-    protected static Properties testProps = new Properties();
-    protected static Map<String, String> userInfo = new HashMap<>();
+    
+    public static EntityManagerFactory getEntityManagerFactory() {
+        return entityManagerFactory;
+    }
 
     static HttpServer startServer() {
         ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());

@@ -34,6 +34,11 @@ public class CourseDTO {
         this.description = course.getDescription();
     }
 
+    public CourseDTO(String courseName, String description) {
+        this.courseName = courseName;
+        this.description = description;
+    }
+    
     public long getId() {
         return id;
     }

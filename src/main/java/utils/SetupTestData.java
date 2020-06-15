@@ -133,6 +133,9 @@ public class SetupTestData {
         yogaclass1.setInstructors(instructorList1);
         yogaclass2.setInstructors(instructorList2);
         yogaclass3.setInstructors(instructorList3);
+        yogaclass4.setInstructors(instructorList1);
+        yogaclass5.setInstructors(instructorList2);
+        yogaclass6.setInstructors(instructorList3);
         yogaclass1.setCourse(course1);
         yogaclass2.setCourse(course2);
         yogaclass3.setCourse(course3);

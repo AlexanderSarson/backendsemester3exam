@@ -46,9 +46,9 @@ public class BaseFacadeTest {
             em.getTransaction().begin();
             em.createNamedQuery("Instructor.deleteAllRows").executeUpdate();
             em.createNamedQuery("Student.deleteAllRows").executeUpdate();
+            em.createNamedQuery("YogaClass.deleteAllRows").executeUpdate();
             em.createNamedQuery("Course.deleteAllRows").executeUpdate();
             em.createNamedQuery("SignedUp.deleteAllRows").executeUpdate();
-            em.createNamedQuery("YogaClass.deleteAllRows").executeUpdate();
             Student student1 = new Student("Alexander", 30405060, "Alexander@mail.dk");
             Student student2 = new Student("Oscar", 40506070, "Oscar@mail.dk");
             Student student3 = new Student("Benjamin", 10203010, "Benjamin@mail.dk");

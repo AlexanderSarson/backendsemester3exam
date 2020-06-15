@@ -20,6 +20,7 @@ public class YogaClassDTO {
     private double price;
     private List<InstructorDTO> instructors;
     private List<SignedUpDTO> signedUp;
+    private CourseDTO course;
 
 
     public YogaClassDTO() {
@@ -30,6 +31,8 @@ public class YogaClassDTO {
         this.maxParticipants = yogaClass.getMaxParticipants();
         this.startDate = yogaClass.getStartDate();
         this.price = yogaClass.getPrice();
+        this.course = new CourseDTO(yogaClass.getCourse());
+        this.instructors = InstructorDTO.convertInstructorListToDTO(yogaClass.getInstructors());
     }
 
     public YogaClassDTO(Long id, int maxParticipants, Date startDate, double price) {

@@ -47,20 +47,6 @@ public class LoginEndpointTest extends BaseResourceTest {
                 .body("message", equalTo(UserException.IN_USE_USERNAME));
     }
 
-    @Disabled
-    @Test
-    public void testLogin_with_correct_password() {
-        String payload = "{\"username\":\""+testProps.getProperty("user1_username")+"\",\"password\":\""+testProps.getProperty("user1_password")+"\"}";
-        given()
-                .contentType(ContentType.JSON)
-                .body(payload)
-                .post("login")
-                .then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("token", notNullValue());
-    }
-
     @Test
     public void testAccess_non_existing_page() {
         String page = "logins";
