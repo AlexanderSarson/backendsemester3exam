@@ -99,7 +99,7 @@ public class InstructorResource {
     public InstructorDTO editInstructorByDTO(InstructorDTO instructorDTO
     ) {
         InstructorDTO dto;
-        dto = FACADE.editInstructor(instructorDTO);
+        dto = FACADE.editInstructorByDTO(instructorDTO);
         return dto;
     }
     

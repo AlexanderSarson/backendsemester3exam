@@ -6,7 +6,6 @@
 package dtos;
 
 import entity.YogaClass;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -16,7 +15,6 @@ import java.util.List;
 public class YogaClassDTO {
     private Long id;
     private int maxParticipants;
-    private Date startDate;
     private double price;
     private List<InstructorDTO> instructors;
     private List<SignedUpDTO> signedUp;
@@ -29,19 +27,22 @@ public class YogaClassDTO {
     public YogaClassDTO(YogaClass yogaClass) {
         this.id = yogaClass.getId();
         this.maxParticipants = yogaClass.getMaxParticipants();
-        this.startDate = yogaClass.getStartDate();
         this.price = yogaClass.getPrice();
         this.course = new CourseDTO(yogaClass.getCourse());
         this.instructors = InstructorDTO.convertInstructorListToDTO(yogaClass.getInstructors());
     }
 
-    public YogaClassDTO(Long id, int maxParticipants, Date startDate, double price) {
+    public YogaClassDTO(Long id, int maxParticipants, double price) {
         this.id = id;
         this.maxParticipants = maxParticipants;
-        this.startDate = startDate;
         this.price = price;
     }
 
+    public YogaClassDTO(int maxParticipants, double price) {
+        this.maxParticipants = maxParticipants;
+        this.price = price;
+    }
+    
     public Long getId() {
         return id;
     }
@@ -58,15 +59,7 @@ public class YogaClassDTO {
         this.maxParticipants = maxParticipants;
     }
 
-    public Date getStartDate() {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public double getPrice() {
+     public double getPrice() {
         return price;
     }
 
@@ -89,5 +82,15 @@ public class YogaClassDTO {
     public void setSignedUp(List<SignedUpDTO> signedUp) {
         this.signedUp = signedUp;
     }
+
+    public CourseDTO getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseDTO course) {
+        this.course = course;
+    }
+    
+    
     
 }

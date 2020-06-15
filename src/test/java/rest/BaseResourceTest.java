@@ -21,10 +21,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
 import javax.persistence.EntityManager;
 
 abstract public class BaseResourceTest {
@@ -35,9 +32,12 @@ abstract public class BaseResourceTest {
     protected static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
     protected static HttpServer httpServer;
     protected static EntityManagerFactory entityManagerFactory;
-    
+    protected static YogaClass yogaclass1;
     public static EntityManagerFactory getEntityManagerFactory() {
         return entityManagerFactory;
+    }
+    public static YogaClass getYogaClass() {
+        return yogaclass1;
     }
 
     static HttpServer startServer() {
@@ -115,7 +115,7 @@ abstract public class BaseResourceTest {
             student4ListSignedUp.add(signedUp8);
             student5ListSignedUp.add(signedUp9);
             student5ListSignedUp.add(signedUp10);
-            YogaClass yogaclass1 = new YogaClass(10, new Date(), 350);
+            yogaclass1 = new YogaClass(10, new Date(), 350);
             YogaClass yogaclass2 = new YogaClass(10, new Date(), 350);
             YogaClass yogaclass3 = new YogaClass(10, new Date(), 350);
             YogaClass yogaclass4 = new YogaClass(10, new Date(), 350);

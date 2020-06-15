@@ -27,6 +27,10 @@ public class InstructorDTO {
         this.name = instructor.getName();
     }
 
+    public InstructorDTO(String name) {
+        this.name = name;
+    }
+    
     public long getId() {
         return id;
     }
@@ -58,5 +62,5 @@ public class InstructorDTO {
         }
         return instructorDTOs;
     }
-    
+      
 }

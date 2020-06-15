@@ -70,6 +70,21 @@ public class YogaClass implements Serializable {
         this.price = price;
     }
 
+    public YogaClass(Course course, int maxParticipants, Date startDate, double price, List<Instructor> instructors) {
+        this.course = course;
+        this.maxParticipants = maxParticipants;
+        this.startDate = startDate;
+        this.price = price;
+        this.instructors = instructors;
+    }
+    
+    public YogaClass(Course course, int maxParticipants, double price, List<Instructor> instructors) {
+        this.course = course;
+        this.maxParticipants = maxParticipants;
+        this.price = price;
+        this.instructors = instructors;
+    }
+    
     public Course getCourse() {
         return course;
     }

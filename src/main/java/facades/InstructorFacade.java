@@ -73,7 +73,7 @@ public class InstructorFacade {
         }
     }
 
-    public InstructorDTO editInstructor(InstructorDTO instructorDTO) {
+    public InstructorDTO editInstructorByDTO(InstructorDTO instructorDTO) {
         EntityManager em = getEntityManager();
         try {
             Instructor instructor = em.find(Instructor.class, instructorDTO.getId());

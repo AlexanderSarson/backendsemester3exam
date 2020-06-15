@@ -5,8 +5,12 @@
  */
 package facades;
 
+import dtos.InstructorDTO;
 import dtos.YogaClassDTO;
+import entity.Course;
+import entity.Instructor;
 import entity.YogaClass;
+import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -57,7 +61,44 @@ public class YogaClassFacade {
     public YogaClassDTO createYogaClass(YogaClassDTO yogaClassDTO){
         EntityManager em = getEntityManager();
         try {
-            
+            Course course = em.find(Course.class, yogaClassDTO.getCourse().getId());
+            List<Instructor> instructors = new ArrayList<>();
+            for (InstructorDTO instructor : yogaClassDTO.getInstructors()) {
+                instructors.add(em.find(Instructor.class, instructor.getId()));
+            }
+            YogaClass yogaClass = new YogaClass(course, yogaClassDTO.getMaxParticipants(), yogaClassDTO.getPrice(), instructors);
+            em.getTransaction().begin();
+            em.persist(yogaClass);
+            em.getTransaction().commit();
+            return new YogaClassDTO(yogaClass);
+        } finally {
+            em.close();
+        }
+    }
+
+    public YogaClassDTO deleteYogaClass(YogaClassDTO yogaClassDTO) {
+        EntityManager em = getEntityManager();
+        try {
+            YogaClass yogaClass = em.find(YogaClass.class, yogaClassDTO.getId());
+            em.getTransaction().begin();
+            em.remove(yogaClass);
+            em.getTransaction().commit();
+            return new YogaClassDTO(yogaClass);
+        } finally {
+            em.close();
+        }
+    }
+
+    public YogaClassDTO editYogaClass(YogaClassDTO yogaClassDTO) {
+        EntityManager em = getEntityManager();
+        try {
+            YogaClass yogaClass = em.find(YogaClass.class, yogaClassDTO.getId());
+            em.getTransaction().begin();
+            yogaClass.setMaxParticipants(yogaClassDTO.getMaxParticipants());
+            yogaClass.setPrice(yogaClassDTO.getPrice());
+            em.persist(yogaClass);
+            em.getTransaction().commit();
+            return new YogaClassDTO(yogaClass);
         } finally {
             em.close();
         }

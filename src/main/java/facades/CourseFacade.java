@@ -6,7 +6,6 @@
 package facades;
 
 import dtos.CourseDTO;
-import dtos.InstructorDTO;
 import dtos.YogaClassDTO;
 import entity.Course;
 import entity.YogaClass;

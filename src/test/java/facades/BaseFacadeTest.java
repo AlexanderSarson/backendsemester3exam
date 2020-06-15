@@ -26,12 +26,16 @@ import utils.EMF_Creator;
 public class BaseFacadeTest {
 
     protected static EntityManagerFactory entityManagerFactory;
-
+    protected static YogaClass yogaclass1;
     public BaseFacadeTest() {
     }
 
     public static EntityManagerFactory getEntityManagerFactory() {
         return entityManagerFactory;
+    }
+    
+    public static YogaClass getYogaClass() {
+        return yogaclass1;
     }
 
     @BeforeAll
@@ -91,12 +95,12 @@ public class BaseFacadeTest {
             student4ListSignedUp.add(signedUp8);
             student5ListSignedUp.add(signedUp9);
             student5ListSignedUp.add(signedUp10);
-            YogaClass yogaclass1 = new YogaClass(10, new Date(), 350);
-            YogaClass yogaclass2 = new YogaClass(10, new Date(), 350);
-            YogaClass yogaclass3 = new YogaClass(10, new Date(), 350);
-            YogaClass yogaclass4 = new YogaClass(10, new Date(), 350);
-            YogaClass yogaclass5 = new YogaClass(10, new Date(), 350);
-            YogaClass yogaclass6 = new YogaClass(10, new Date(), 350);
+            yogaclass1 = new YogaClass(10, new Date(), 350);
+            YogaClass yogaclass2 = new YogaClass(15, new Date(), 350);
+            YogaClass yogaclass3 = new YogaClass(16, new Date(), 350);
+            YogaClass yogaclass4 = new YogaClass(17, new Date(), 350);
+            YogaClass yogaclass5 = new YogaClass(18, new Date(), 350);
+            YogaClass yogaclass6 = new YogaClass(19, new Date(), 350);
             List<SignedUp> yogaClass1SignUp = new ArrayList<>();
             List<SignedUp> yogaClass2SignUp = new ArrayList<>();
             List<SignedUp> yogaClass3SignUp = new ArrayList<>();
