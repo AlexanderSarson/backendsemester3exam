@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -21,6 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="instructor")
+@NamedQuery(name = "Instructor.deleteAllRows", query = "DELETE FROM Instructor")
 public class Instructor implements Serializable {
 
     private static final long serialVersionUID = 1L;

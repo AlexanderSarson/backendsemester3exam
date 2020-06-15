@@ -1,65 +1,42 @@
-package rest;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package facades;
 
 import entity.Course;
 import entity.Instructor;
 import entity.SignedUp;
 import entity.Student;
 import entity.YogaClass;
-import io.restassured.RestAssured;
-import io.restassured.parsing.Parser;
-import org.glassfish.grizzly.http.server.HttpServer;
-import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.server.ResourceConfig;
-import org.junit.jupiter.api.AfterAll;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import utils.EMF_Creator;
 
-import javax.persistence.EntityManagerFactory;
-import javax.ws.rs.core.UriBuilder;
-import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import javax.persistence.EntityManager;
+/**
+ *
+ * @author root
+ */
+public class BaseFacadeTest {
 
-abstract public class BaseResourceTest {
-
-    protected static final int SERVER_PORT = 7777;
-    protected static final String SERVER_URL = "http://localhost/api";
-
-    protected static final URI BASE_URI = UriBuilder.fromUri(SERVER_URL).port(SERVER_PORT).build();
-    protected static HttpServer httpServer;
     protected static EntityManagerFactory entityManagerFactory;
 
-    protected static Properties testProps = new Properties();
-    protected static Map<String, String> userInfo = new HashMap<>();
+    public BaseFacadeTest() {
+    }
 
-    static HttpServer startServer() {
-        ResourceConfig rc = ResourceConfig.forApplication(new ApplicationConfig());
-        return GrizzlyHttpServerFactory.createHttpServer(BASE_URI, rc);
+    public static EntityManagerFactory getEntityManagerFactory() {
+        return entityManagerFactory;
     }
 
     @BeforeAll
-    public static void setUpClass() throws IOException {
-        EMF_Creator.startREST_TestWithDB();
-        entityManagerFactory = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.TEST, EMF_Creator.Strategy.CREATE);
-
-        httpServer = startServer();
-        RestAssured.baseURI = SERVER_URL;
-        RestAssured.port = SERVER_PORT;
-        RestAssured.defaultParser = Parser.JSON;
-        //testProps.load(JokeResourceTest.class.getClassLoader().getResourceAsStream("testing.properties"));
-    }
-
-    @AfterAll
-    public static void closeTestServer() {
-        EMF_Creator.endREST_TestWithDB();
-        httpServer.shutdownNow();
+    public static void setUpClass() {
+        entityManagerFactory = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.TEST, EMF_Creator.Strategy.DROP_AND_CREATE);
     }
 
     @BeforeEach
@@ -69,9 +46,9 @@ abstract public class BaseResourceTest {
             em.getTransaction().begin();
             em.createNamedQuery("Instructor.deleteAllRows").executeUpdate();
             em.createNamedQuery("Student.deleteAllRows").executeUpdate();
-            em.createNamedQuery("YogaClass.deleteAllRows").executeUpdate();
             em.createNamedQuery("Course.deleteAllRows").executeUpdate();
             em.createNamedQuery("SignedUp.deleteAllRows").executeUpdate();
+            em.createNamedQuery("YogaClass.deleteAllRows").executeUpdate();
             Student student1 = new Student("Alexander", 30405060, "Alexander@mail.dk");
             Student student2 = new Student("Oscar", 40506070, "Oscar@mail.dk");
             Student student3 = new Student("Benjamin", 10203010, "Benjamin@mail.dk");
@@ -142,7 +119,7 @@ abstract public class BaseResourceTest {
             courseYogaClassList2.add(yogaclass4);
             courseYogaClassList3.add(yogaclass5);
             courseYogaClassList3.add(yogaclass6);
-
+            
             em.persist(instructor1);
             em.persist(instructor2);
             em.persist(instructor3);
@@ -198,4 +175,5 @@ abstract public class BaseResourceTest {
             em.close();
         }
     }
+
 }

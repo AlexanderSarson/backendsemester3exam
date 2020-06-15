@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -24,6 +25,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="signedup")
+@NamedQuery(name = "SignedUp.deleteAllRows", query = "DELETE FROM SignedUp")
 public class SignedUp implements Serializable {
 
     @ManyToOne

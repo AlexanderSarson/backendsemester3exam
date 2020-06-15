@@ -15,6 +15,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -26,8 +27,10 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Table(name="yogaclass")
+@NamedQuery(name = "YogaClass.deleteAllRows", query = "DELETE FROM YogaClass")
 public class YogaClass implements Serializable {
 
+    
     @ManyToOne
     private Course course;
 

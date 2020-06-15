@@ -21,6 +21,7 @@ import javax.persistence.EntityManagerFactory;
  * @author root
  */
 public class SetupTestData {
+
     public static void main(String[] args) {
 
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
@@ -70,6 +71,9 @@ public class SetupTestData {
         YogaClass yogaclass1 = new YogaClass(10, new Date(), 350);
         YogaClass yogaclass2 = new YogaClass(10, new Date(), 350);
         YogaClass yogaclass3 = new YogaClass(10, new Date(), 350);
+        YogaClass yogaclass4 = new YogaClass(10, new Date(), 350);
+        YogaClass yogaclass5 = new YogaClass(10, new Date(), 350);
+        YogaClass yogaclass6 = new YogaClass(10, new Date(), 350);
         List<SignedUp> yogaClass1SignUp = new ArrayList<>();
         List<SignedUp> yogaClass2SignUp = new ArrayList<>();
         List<SignedUp> yogaClass3SignUp = new ArrayList<>();
@@ -83,8 +87,16 @@ public class SetupTestData {
         yogaClass3SignUp.add(signedUp8);
         yogaClass3SignUp.add(signedUp9);
         yogaClass3SignUp.add(signedUp10);
-        
-        
+        List<YogaClass> courseYogaClassList1 = new ArrayList<>();
+        List<YogaClass> courseYogaClassList2 = new ArrayList<>();
+        List<YogaClass> courseYogaClassList3 = new ArrayList<>();
+        courseYogaClassList1.add(yogaclass1);
+        courseYogaClassList1.add(yogaclass2);
+        courseYogaClassList2.add(yogaclass3);
+        courseYogaClassList2.add(yogaclass4);
+        courseYogaClassList3.add(yogaclass5);
+        courseYogaClassList3.add(yogaclass6);
+
         em.getTransaction().begin();
         em.persist(instructor1);
         em.persist(instructor2);
@@ -100,6 +112,9 @@ public class SetupTestData {
         em.persist(yogaclass1);
         em.persist(yogaclass2);
         em.persist(yogaclass3);
+        em.persist(yogaclass4);
+        em.persist(yogaclass5);
+        em.persist(yogaclass6);
         em.persist(signedUp1);
         em.persist(signedUp2);
         em.persist(signedUp3);
@@ -121,10 +136,19 @@ public class SetupTestData {
         yogaclass1.setCourse(course1);
         yogaclass2.setCourse(course2);
         yogaclass3.setCourse(course3);
+        yogaclass4.setCourse(course1);
+        yogaclass5.setCourse(course2);
+        yogaclass6.setCourse(course3);
         yogaclass1.setSignedUp(yogaClass1SignUp);
-        yogaclass1.setSignedUp(yogaClass2SignUp);
-        yogaclass1.setSignedUp(yogaClass3SignUp);
+        yogaclass2.setSignedUp(yogaClass2SignUp);
+        yogaclass3.setSignedUp(yogaClass3SignUp);
+        yogaclass4.setSignedUp(yogaClass1SignUp);
+        yogaclass5.setSignedUp(yogaClass2SignUp);
+        yogaclass6.setSignedUp(yogaClass3SignUp);
+        course1.setYogaClasses(courseYogaClassList1);
+        course2.setYogaClasses(courseYogaClassList2);
+        course3.setYogaClasses(courseYogaClassList3);
         em.getTransaction().commit();
     }
-    
+
 }

@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -21,6 +22,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "course")
+@NamedQuery(name = "Course.deleteAllRows", query = "DELETE FROM Course")
 public class Course implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -32,7 +34,8 @@ public class Course implements Serializable {
     @Column(name="description")
     private String description;
     @OneToMany(mappedBy = "course")
-    private List<YogaClass> yogaClass;
+    private List<YogaClass> yogaClasses;
+    
 
     public Course() {
     }
@@ -45,7 +48,7 @@ public class Course implements Serializable {
     public Course(String courseName, String description, List<YogaClass> yogaClass) {
         this.courseName = courseName;
         this.description = description;
-        this.yogaClass = yogaClass;
+        this.yogaClasses = yogaClass;
     }
 
     public String getCourseName() {
@@ -64,12 +67,12 @@ public class Course implements Serializable {
         this.description = description;
     }
 
-    public List<YogaClass> getYogaClass() {
-        return yogaClass;
+    public List<YogaClass> getYogaClasses() {
+        return yogaClasses;
     }
 
-    public void setYogaClass(List<YogaClass> yogaClass) {
-        this.yogaClass = yogaClass;
+    public void setYogaClasses(List<YogaClass> yogaClass) {
+        this.yogaClasses = yogaClass;
     }
     
     public Long getId() {
