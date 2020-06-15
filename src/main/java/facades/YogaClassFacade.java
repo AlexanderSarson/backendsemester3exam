@@ -53,4 +53,13 @@ public class YogaClassFacade {
             em.close();
         }
     }
+    
+    public YogaClassDTO createYogaClass(YogaClassDTO yogaClassDTO){
+        EntityManager em = getEntityManager();
+        try {
+            
+        } finally {
+            em.close();
+        }
+    }
 }

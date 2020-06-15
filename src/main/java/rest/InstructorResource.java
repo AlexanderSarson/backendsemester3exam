@@ -6,14 +6,21 @@
 package rest;
 
 import dtos.InstructorDTO;
+import errorhandling.CourseException;
 import facades.InstructorFacade;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Produces;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
@@ -60,5 +67,55 @@ public class InstructorResource {
     public List<InstructorDTO> getAllCourses()  {
         List<InstructorDTO> listOfInstructorDTOs = FACADE.getAllInstructors();
         return listOfInstructorDTOs;
+    }
+    
+    @Operation(summary = "Create instructor",
+            tags = {"instructor"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = InstructorDTO.class))),
+                @ApiResponse(responseCode = "200", description = "The instructor is created"),
+                @ApiResponse(responseCode = "404", description = "Instructor not created")})
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes(MediaType.APPLICATION_JSON)
+    public InstructorDTO createInstructorByDTO(InstructorDTO instructorDTO
+    ) {
+        InstructorDTO dto;
+        dto = FACADE.createInstructor(instructorDTO);
+        return dto;
+    }
+    
+    @Operation(summary = "Edit instructor",
+            tags = {"instructor"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = InstructorDTO.class))),
+                @ApiResponse(responseCode = "200", description = "The instructor is edited"),
+                @ApiResponse(responseCode = "404", description = "Instructor not edited")})
+    @PUT
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes(MediaType.APPLICATION_JSON)
+    public InstructorDTO editInstructorByDTO(InstructorDTO instructorDTO
+    ) {
+        InstructorDTO dto;
+        dto = FACADE.editInstructor(instructorDTO);
+        return dto;
+    }
+    
+    @Operation(summary = "Delete instructor",
+            tags = {"instructor"},
+            responses = {
+                @ApiResponse(
+                        content = @Content(mediaType = "application/json", schema = @Schema(implementation = InstructorDTO.class))),
+                @ApiResponse(responseCode = "200", description = "The instructor is deleted"),
+                @ApiResponse(responseCode = "404", description = "instructor not deleted")})
+    @DELETE
+    @Produces({MediaType.APPLICATION_JSON})
+    @Consumes(MediaType.APPLICATION_JSON)
+    public InstructorDTO deleteInstructorByDTO(InstructorDTO instructorDTO
+    ) throws CourseException {
+        InstructorDTO dto = FACADE.deleteInstructorById(instructorDTO.getId());
+        return dto;
     }
 }

@@ -5,13 +5,17 @@
  */
 package facades;
 
+import dtos.CourseDTO;
 import dtos.InstructorDTO;
+import entity.Course;
 import entity.Instructor;
+import errorhandling.CourseException;
 import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 
 /**
  *
@@ -54,5 +58,46 @@ public class InstructorFacade {
             em.close();
         }
                 
+    }
+    
+    public InstructorDTO createInstructor(InstructorDTO instructorDTO) {
+        EntityManager em = getEntityManager();
+        try {
+            Instructor instructor = new Instructor(instructorDTO.getName());
+            em.getTransaction().begin();
+            em.persist(instructor);
+            em.getTransaction().commit();
+            return new InstructorDTO(instructor);
+        } finally {
+            em.close();
+        }
+    }
+
+    public InstructorDTO editInstructor(InstructorDTO instructorDTO) {
+        EntityManager em = getEntityManager();
+        try {
+            Instructor instructor = em.find(Instructor.class, instructorDTO.getId());
+            em.getTransaction().begin();
+            instructor.setName(instructorDTO.getName());
+            em.getTransaction().commit();
+            return new InstructorDTO(instructor);
+        } finally {
+            em.close();
+        }
+    }
+
+    public InstructorDTO deleteInstructorById(long id) throws CourseException {
+        EntityManager em = getEntityManager();
+        try {
+            Instructor instructor = em.find(Instructor.class, id);
+            em.getTransaction().begin();
+            em.remove(instructor);
+            em.getTransaction().commit();
+            return new InstructorDTO(instructor);
+        } catch (IllegalArgumentException e) {
+            throw new CourseException("Could not find instructor to delete");
+        } finally {
+            em.close();
+        }
     }
 }
