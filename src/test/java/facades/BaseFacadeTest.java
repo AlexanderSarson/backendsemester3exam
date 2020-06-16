@@ -27,6 +27,7 @@ public class BaseFacadeTest {
 
     protected static EntityManagerFactory entityManagerFactory;
     protected static YogaClass yogaclass1;
+    protected static Student student1;
     public BaseFacadeTest() {
     }
 
@@ -37,7 +38,9 @@ public class BaseFacadeTest {
     public static YogaClass getYogaClass() {
         return yogaclass1;
     }
-
+    public static Student getStudent(){
+        return student1;
+    }
     @BeforeAll
     public static void setUpClass() {
         entityManagerFactory = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.TEST, EMF_Creator.Strategy.DROP_AND_CREATE);
@@ -53,7 +56,7 @@ public class BaseFacadeTest {
             em.createNamedQuery("YogaClass.deleteAllRows").executeUpdate();
             em.createNamedQuery("Course.deleteAllRows").executeUpdate();
             em.createNamedQuery("SignedUp.deleteAllRows").executeUpdate();
-            Student student1 = new Student("Alexander", 30405060, "Alexander@mail.dk");
+            student1 = new Student("Alexander", 30405060, "Alexander@mail.dk");
             Student student2 = new Student("Oscar", 40506070, "Oscar@mail.dk");
             Student student3 = new Student("Benjamin", 10203010, "Benjamin@mail.dk");
             Student student4 = new Student("Mads", 40503020, "Mads@mail.dk");

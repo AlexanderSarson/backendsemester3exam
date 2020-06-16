@@ -21,6 +21,8 @@ public class SetupTestUsers {
     // Whatever you do DO NOT COMMIT and PUSH with the real passwords
 
     User user = new User("user", "test1");
+    User alexander = new User("Alexander", "test1");
+    User michael = new User("Michael", "test1");
     User admin = new User("admin", "test1");
     User both = new User("user_admin", "test1");
 
@@ -31,12 +33,16 @@ public class SetupTestUsers {
     Role userRole = new Role("user");
     Role adminRole = new Role("admin");
     user.addRole(userRole);
+    alexander.addRole(userRole);
+    michael.addRole(userRole);
     admin.addRole(adminRole);
     both.addRole(userRole);
     both.addRole(adminRole);
     em.persist(userRole);
     em.persist(adminRole);
     em.persist(user);
+    em.persist(michael);
+    em.persist(alexander);
     em.persist(admin);
     em.persist(both);
     em.getTransaction().commit();

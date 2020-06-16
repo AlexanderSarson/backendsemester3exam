@@ -6,7 +6,9 @@
 package dtos;
 
 import entity.SignedUp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  *
@@ -26,6 +28,7 @@ public class SignedUpDTO {
         this.id = signedUp.getId();
         this.paid = signedUp.isPaid();
         this.datePaid = signedUp.getDatePaid();
+        this.yogaClass = new YogaClassDTO(signedUp.getYogaClass());
     }
 
     public Long getId() {
@@ -66,6 +69,14 @@ public class SignedUpDTO {
 
     public void setStudent(StudentDTO student) {
         this.student = student;
+    }
+    
+    public static List<SignedUpDTO> convertSignedUpListToDTO(List<SignedUp> signedUps){
+        List<SignedUpDTO> signedUpDTOS = new ArrayList<>();
+        for (SignedUp signedUp : signedUps) {
+            signedUpDTOS.add(new SignedUpDTO(signedUp));
+        }
+        return signedUpDTOS;
     }
     
 }

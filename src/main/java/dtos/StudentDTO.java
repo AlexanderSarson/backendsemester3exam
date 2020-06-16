@@ -27,6 +27,7 @@ public class StudentDTO {
         this.name = student.getName();
         this.phone = student.getPhone();
         this.email = student.getEmail();
+        this.signedUp = SignedUpDTO.convertSignedUpListToDTO(student.getSignedUp());
     }
 
     public StudentDTO(long id, String name, int phone, String email) {

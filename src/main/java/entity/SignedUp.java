@@ -31,8 +31,7 @@ public class SignedUp implements Serializable {
     @ManyToOne
     private YogaClass yogaClass;
 
-    @ManyToOne
-    private Student student;
+  
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -43,6 +42,8 @@ public class SignedUp implements Serializable {
     @Column(name="datePaid")
     @Temporal(TemporalType.TIMESTAMP)
     private Date datePaid;
+    @ManyToOne
+    private Student student;
 
     public SignedUp() {
     }
